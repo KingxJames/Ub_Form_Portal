@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -13,26 +13,12 @@ import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-// import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ListItems from '../../components/ListItems/ListItems';
-
-
-
-// function Copyright(props: any) {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
+import SearchBar from '../../components/SearchBar/SearchBar';
+import UserPosition from '../../components/UserPosition/UserPosition';
 
 const drawerWidth: number = 240;
 
@@ -89,10 +75,29 @@ const defaultTheme = createTheme();
 
 
 export const Dashboard: React.FC = () => {
+  
+  const items = [
+    'Apple',
+    'Banana',
+    'Cherry',
+    'Date',
+    'Elderberry',
+    'Fig',
+    'Grape'
+  ];
+
+  const [filteredItems, setFilteredItems] = useState<string[]>(items);
+
+
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
 
+  };
+
+  const handleSearch = (searchTerm: string) => {
+    console.log('Search term:', searchTerm);
+    // Add your search logic here
   };
 
   return (
@@ -103,7 +108,8 @@ export const Dashboard: React.FC = () => {
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
-              pr: '24px', // keep right padding when drawer closed
+              pr: '22px', // keep right padding when drawer closed
+              backgroundColor: '#6C3777', // Change this to your desired color
             }}
           >
             <IconButton
@@ -125,13 +131,21 @@ export const Dashboard: React.FC = () => {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
-            </Typography>
-            <IconButton color="inherit">
+              {/* Dashboard */}
+              <SearchBar onSearch={handleSearch} />            
+              </Typography>
+              <UserPosition
+                  name="James Faber"
+                  position="Software Engineer"
+                  profilePicture="src/components/icons/jamesFaber.jpeg"
+              />
+            {/* <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
+
+            
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
