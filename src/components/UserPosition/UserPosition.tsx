@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import './UserPosition.scss';
 
 interface UserPositionProps {
@@ -8,48 +7,29 @@ interface UserPositionProps {
   profilePicture: string;
 }
 
-let items = [
-  {
-      text: 'Cut',
-  },
-  {
-      text: 'Copy',
-  },
-  {
-      text: 'Paste',
-  }
-];
-
 export const UserPosition: React.FC<UserPositionProps> = ({ name, position, profilePicture }) => {
-
-  // const createHandleMenuClick = (menuItem: string) => {
-  //   return () => {
-  //     console.log(`Clicked on ${menuItem}`);
-  //   };
-  // };
-
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  // const handleLogout = () => {
-  //   // Implement your logout logic here
-  //   console.log('Logged out');
-  // };
-
   return (
     <div className="user-position">
       <div className="user-details">
-        <h3>{name}</h3>
+        <h4>{name}</h4>
         <p>{position}</p>
       </div>
       <div className="profile-picture" onClick={toggleDropdown}>
         <img src={profilePicture} alt={name} />
-        {/* <DropDownButtonComponent id="element" items={items}> Clipboard </DropDownButtonComponent> */}
+        {dropdownOpen && (
+          <ul className="dropdown-menu">
+            <li>Logout</li>
+          </ul>
+        )}
       </div>
     </div>
   );
 };
+
 export default UserPosition;

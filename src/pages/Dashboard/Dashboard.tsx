@@ -9,17 +9,17 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import ListItems from '../../components/ListItems/ListItems';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import UserPosition from '../../components/UserPosition/UserPosition';
-
+import UbLogo from '../../components/icons/UB_Logo.png';
+import FormCard from '../../components/Card/FormCard';
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -70,12 +70,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-
 export const Dashboard: React.FC = () => {
-  
   const items = [
     'Apple',
     'Banana',
@@ -87,12 +84,10 @@ export const Dashboard: React.FC = () => {
   ];
 
   const [filteredItems, setFilteredItems] = useState<string[]>(items);
+  const [open, setOpen] = useState(true);
 
-
-  const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
-
   };
 
   const handleSearch = (searchTerm: string) => {
@@ -100,123 +95,122 @@ export const Dashboard: React.FC = () => {
     // Add your search logic here
   };
 
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
+
   return (
     <div>
-        <ThemeProvider theme={defaultTheme}>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: '22px', // keep right padding when drawer closed
-              backgroundColor: '#6C3777', // Change this to your desired color
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
+      <ThemeProvider theme={defaultTheme}>
+        <Box sx={{ display: 'flex' }}>
+          <CssBaseline />
+          <AppBar position="absolute" open={open}>
+            <Toolbar
               sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
+                pr: '22px',
+                backgroundColor: '#6C3777',
               }}
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              {/* Dashboard */}
-              <SearchBar onSearch={handleSearch} />            
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                onClick={toggleDrawer}
+                sx={{
+                  marginRight: '36px',
+                  ...(open && { display: 'none' }),
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                sx={{ flexGrow: 1 }}
+              >
+                <SearchBar onSearch={handleSearch} showIconOnly={isSmallScreen} />
               </Typography>
               <UserPosition
-                  name="James Faber"
-                  position="Software Engineer"
-                  profilePicture="src/components/icons/jamesFaber.jpeg"
+                name="James Faber"
+                position="Software Engineer"
+                profilePicture="src/components/icons/jamesFaber.jpeg"
               />
-            {/* <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
-
-            
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
+            </Toolbar>
+          </AppBar>
+          <Drawer variant="permanent" open={open}>
+            <Toolbar
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                px: [1],
+              }}
+            >
+              <img
+                src={UbLogo}
+                alt="Ub Logo"
+                style={{
+                  width: open ? '150px' : '100px',
+                  height: open ? '120px' : '70px',
+                  transition: 'width 0.3s, height 0.3s',
+                }}
+              />
+              <IconButton onClick={toggleDrawer}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </Toolbar>
+            <Divider />
+            <List component="nav">
+              <ListItems />
+            </List>
+          </Drawer>
+          <Box
+            component="main"
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'light'
+                  ? theme.palette.grey[100]
+                  : theme.palette.grey[900],
+              flexGrow: 1,
+              height: '100vh',
+              overflow: 'auto',
             }}
           >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-          <ListItems/>
-            {/* <Divider sx={{ my: 1 }} /> */}
-          </List>
-        </Drawer>
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
+            <Toolbar />
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={4} lg={3}>
+                  <FormCard
+                    formPreview="src/components/icons/formPreview.png"
+                    title="UB Annual Report Template Academic Division"
+                  />
+                </Grid>
+                <Grid item xs={12} md={4} lg={3}>
+                  <FormCard
+                    formPreview="src/components/icons/formPreview.png"
+                    title="UB Annual Report Template Non-Academic Division
+                  "
+                  />
+                </Grid>
+                <Grid item xs={12} md={4} lg={3}>
+                  {/* <Paper sx={{ 
                     p: 2,
-                    display: 'flex',
+                    display: 'flex', 
                     flexDirection: 'column',
                     height: 240,
-                  }}
-                >
-                </Paper>
+                    }}>
+                  </Paper> */}
+                  <FormCard
+                    formPreview="src/components/icons/formPreview.png"
+                    title="University of Belize Key Statistics Template 
+                  "
+                  />
+                </Grid>
               </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                </Paper>
-              </Grid>
-            </Grid>
-            {/* <Copyright sx={{ pt: 4 }} /> */}
-          </Container>
+            </Container>
+          </Box>
         </Box>
-      </Box>
-    </ThemeProvider>
+      </ThemeProvider>
     </div>
   );
 }
