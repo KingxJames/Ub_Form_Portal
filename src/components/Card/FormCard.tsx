@@ -22,10 +22,20 @@ export const FormCard: React.FC<FormCardProps> = ({formPreview, title}) => {
             component="img"
             height="200"
             image={formPreview}
-            alt="green iguana"
+            alt="form preview"
           />
           <CardContent sx={{ height: 80 }}>
-        <Typography gutterBottom variant="h6" component="div"  sx={{ fontSize: '15px' }}>
+            <Typography
+              gutterBottom
+              variant="h6"
+              component="div"
+              sx={{
+                fontSize: '14px',
+                whiteSpace: 'wrap',
+                // overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
               {title}
             </Typography>
           </CardContent>

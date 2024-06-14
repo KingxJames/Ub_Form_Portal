@@ -20,6 +20,7 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import UserPosition from '../../components/UserPosition/UserPosition';
 import UbLogo from '../../components/icons/UB_Logo.png';
 import FormCard from '../../components/Card/FormCard';
+import SelectAutoWidth from '../../components/SelectAutoWidth/SelectAutoWidth';
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -74,13 +75,9 @@ const defaultTheme = createTheme();
 
 export const Dashboard: React.FC = () => {
   const items = [
-    'Apple',
-    'Banana',
-    'Cherry',
-    'Date',
-    'Elderberry',
-    'Fig',
-    'Grape'
+    'UB Annual Report Template Academic Division',
+    'UB Annual Report Template Non-Academic Division',
+    'University of Belize Key Statistics Template',
   ];
 
   const [filteredItems, setFilteredItems] = useState<string[]>(items);
@@ -177,6 +174,23 @@ export const Dashboard: React.FC = () => {
             }}
           >
             <Toolbar />
+
+
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Grid container justifyContent="space-between" alignItems="center" spacing={2}>
+                  <Grid item xs={12} sm={6} md={4}>
+                    <Typography variant="body1"><b>Form</b></Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={4}>
+                    <SelectAutoWidth />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Container>
+
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={4} lg={3}>
@@ -188,8 +202,7 @@ export const Dashboard: React.FC = () => {
                 <Grid item xs={12} md={4} lg={3}>
                   <FormCard
                     formPreview="src/components/icons/formPreview.png"
-                    title="UB Annual Report Template Non-Academic Division
-                  "
+                    title="UB Annual Report Template Non-Academic Division"
                   />
                 </Grid>
                 <Grid item xs={12} md={4} lg={3}>
@@ -202,8 +215,7 @@ export const Dashboard: React.FC = () => {
                   </Paper> */}
                   <FormCard
                     formPreview="src/components/icons/formPreview.png"
-                    title="University of Belize Key Statistics Template 
-                  "
+                    title="University of Belize Key Statistics Template"
                   />
                 </Grid>
               </Grid>
