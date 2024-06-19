@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import  { FormCard } from './FormCard';
 
 const meta: Meta<typeof FormCard> = {
-  title: 'components/FormCard', 
+  title: 'components/common/FormCard', 
   component: FormCard,
   tags: ['autodocs'],
   parameters: {

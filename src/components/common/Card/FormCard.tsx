@@ -32,7 +32,6 @@ export const FormCard: React.FC<FormCardProps> = ({formPreview, title}) => {
               sx={{
                 fontSize: '14px',
                 whiteSpace: 'wrap',
-                // overflow: 'hidden',
                 textOverflow: 'ellipsis',
               }}
             >
