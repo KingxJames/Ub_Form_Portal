@@ -1,6 +1,6 @@
 // import React from 'react'
 import UBStepper from "../../components/common/Stepper/UBStepper";
-import AnnualAcademicReportStep1 from "../../components/reports/annual/annual-academic-report/AnnualAcademicReportStep1";
+import AnnualAcademicReportStep1 from "../../components/reports/annual/annual-academic-report/step1/AnnualAcademicReportStep1";
 import AnnualAcademicReportStep2 from "../../components/reports/annual/annual-academic-report/AnnualAcademicReportStep2";
 
 const steps = [
